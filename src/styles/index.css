@@ -1,0 +1,6 @@
+@import './_normalize.css';
+@import './_main.css';
+@import './_buttons.css';
+@import './_effects.css';
+
+@import '../../node_modules//font-awesome/css/font-awesome.css';
