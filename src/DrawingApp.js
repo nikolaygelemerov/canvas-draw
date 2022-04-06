@@ -1,5 +1,5 @@
-import { DrawingArea } from './DrawingArea.js';
-import * as shapes from './shapes/index.js';
+import { DrawingArea } from "./DrawingArea.js";
+import * as shapes from "./shapes/index.js";
 
 export class DrawingApp {
   #id = null;
@@ -10,15 +10,15 @@ export class DrawingApp {
 
   #Shape = shapes.Circle;
 
-  #backgroundColor = '';
-  #drawColor = '';
+  #backgroundColor = "";
+  #drawColor = "";
   #drawFill = false;
   #drawMode = false;
   #drawRadius = 15;
 
   constructor(id) {
     if (!id) {
-      throw new Error('id should be defined');
+      throw new Error("id should be defined");
     }
 
     this.#id = id;
@@ -34,7 +34,7 @@ export class DrawingApp {
       centerY: e.offsetY,
       color: this.#drawColor,
       context: this.#drawingArea.context,
-      radius: this.#drawRadius
+      radius: this.#drawRadius,
     });
 
     if (this.#drawMode && this.#drawFill) {
@@ -54,7 +54,7 @@ export class DrawingApp {
   #onDraw = () => {
     this.#drawMode = true;
     this.#drawColor = this.#drawInput.value;
-    this.#setCursor('paint-brush');
+    this.#setCursor("paint-brush");
   };
 
   #onDrawColorChange = (e) => {
@@ -66,13 +66,13 @@ export class DrawingApp {
     this.#drawFill = false;
     this.#drawColor = this.#drawInput.value;
     this.#Shape = shapes[button.id];
-    this.#setCursor('pencil');
+    this.#setCursor("pencil");
   };
 
   #onErase = () => {
     this.#drawMode = true;
     this.#drawColor = this.#backgroundColor;
-    this.#setCursor('eraser');
+    this.#setCursor("eraser");
   };
 
   #onMouseDown = (e) => {
@@ -91,30 +91,30 @@ export class DrawingApp {
 
   #setCursor(type) {
     switch (type) {
-      case 'pencil':
-        $(this.#canvas).awesomeCursor('pencil', {
-          color: 'limegreen',
+      case "pencil":
+        $(this.#canvas).awesomeCursor("pencil", {
+          color: "limegreen",
           size: 24,
-          hotspot: 'bottom left',
-          outline: 'brown'
+          hotspot: "bottom left",
+          outline: "brown",
         });
         break;
 
-      case 'paint-brush':
-        $(this.#canvas).awesomeCursor('paint-brush', {
-          color: 'grey',
+      case "paint-brush":
+        $(this.#canvas).awesomeCursor("paint-brush", {
+          color: "grey",
           size: 30,
-          hotspot: 'bottom left',
-          outline: 'black'
+          hotspot: "bottom left",
+          outline: "black",
         });
         break;
 
-      case 'eraser':
-        $(this.#canvas).awesomeCursor('eraser', {
-          color: 'skyblue',
+      case "eraser":
+        $(this.#canvas).awesomeCursor("eraser", {
+          color: "skyblue",
           size: 32,
-          hotspot: 'bottom left',
-          outline: 'black'
+          hotspot: "center",
+          outline: "black",
         });
         break;
     }
@@ -122,50 +122,50 @@ export class DrawingApp {
 
   #setDimensions() {
     // Set canvas width based on parent's one
-    this.#canvas.width = document.querySelector('#canvasContainer').offsetWidth;
+    this.#canvas.width = document.querySelector("#canvasContainer").offsetWidth;
 
     // Set canvas height based on parent's one
     this.#canvas.height =
-      document.querySelector('#canvasContainer').offsetHeight;
+      document.querySelector("#canvasContainer").offsetHeight;
   }
 
   #setEventListeners() {
     // Add `mousedown` event listener
-    this.#canvas.addEventListener('mousedown', this.#onMouseDown);
+    this.#canvas.addEventListener("mousedown", this.#onMouseDown);
 
     // Add `mouseup` event
-    this.#canvas.addEventListener('mouseup', this.#onMouseUp);
+    this.#canvas.addEventListener("mouseup", this.#onMouseUp);
 
     // Add `mousemove` event
-    this.#canvas.addEventListener('mousemove', this.#onMouseMove);
+    this.#canvas.addEventListener("mousemove", this.#onMouseMove);
 
     // Add background input `change` event listener
     this.#backgroundInput.addEventListener(
-      'change',
+      "change",
       this.#onBackgroundColorChange
     );
 
     // Add draw input `change` event listener
-    this.#drawInput.addEventListener('change', this.#onDrawColorChange);
+    this.#drawInput.addEventListener("change", this.#onDrawColorChange);
 
     // Add draw button `click` event listener
-    document.querySelector('#draw').addEventListener('click', this.#onDraw);
+    document.querySelector("#draw").addEventListener("click", this.#onDraw);
 
     // Add shape buttons `click` event listeners
     document
-      .querySelectorAll('.btn-shape')
+      .querySelectorAll(".btn-shape")
       .forEach((button) =>
-        button.addEventListener('click', this.#onShapeSelect.bind(this, button))
+        button.addEventListener("click", this.#onShapeSelect.bind(this, button))
       );
 
     // Add erase button `click` event listener
-    document.querySelector('#erase').addEventListener('click', this.#onErase);
+    document.querySelector("#erase").addEventListener("click", this.#onErase);
 
     // Add clear button `click` event listener
-    document.querySelector('#clear').addEventListener('click', this.#onClear);
+    document.querySelector("#clear").addEventListener("click", this.#onClear);
 
     // Add window `resize` event listener
-    window.addEventListener('resize', this.#setDimensions.bind(this));
+    window.addEventListener("resize", this.#setDimensions.bind(this));
   }
 
   #setInitials() {
@@ -183,15 +183,15 @@ export class DrawingApp {
     this.#canvas.style.backgroundColor = this.#backgroundColor;
 
     // cursor type
-    this.#setCursor('pencil');
+    this.#setCursor("pencil");
   }
 
   #queryElements() {
     // Get canvas DOM element
     this.#canvas = document.querySelector(`#${this.#id}`);
 
-    this.#backgroundInput = document.querySelector('#background input');
+    this.#backgroundInput = document.querySelector("#background input");
 
-    this.#drawInput = document.querySelector('#draw input');
+    this.#drawInput = document.querySelector("#draw input");
   }
 }
